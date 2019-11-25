@@ -2,7 +2,9 @@ package com.training.RepAgency.controller;
 
 
 import com.training.RepAgency.entity.Revenue;
+import com.training.RepAgency.service.BoxService;
 import com.training.RepAgency.service.OrderService;
+import com.training.RepAgency.service.ProductOrderService;
 import com.training.RepAgency.service.RevenueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,12 @@ public class RevenueController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private BoxService boxService;
+
+    @Autowired
+    private ProductOrderService productOrderService;
+
     @PostMapping(value = "/local/pay")
     public String payOrder(@RequestParam("money") Long money,
                            Model model) {
@@ -39,7 +47,7 @@ public class RevenueController {
 
                 revenueService.findRevenueByOrderId(orderId).ifPresent(
                         p -> {
-                            if (p == 0 ) {
+                            if (p == 0) {
                                 result[0] = "redirect/?error=false";
                             }
                             if (money >= p) {
@@ -47,11 +55,16 @@ public class RevenueController {
                                         .payment(p)
                                         .date(LocalDateTime.now())
                                         .build());
-                                result[0] = "redirect:/?error=false";
+                                deletePaidProducts(orderId);
+                                orderService.updateOrderSetPaid(0L,orderId);
+                                log.info("{}", orderId);
+                                productOrderService.deleteByOrderId(orderId);
+                                model.addAttribute("payment",0);
+                                result[0] = "redirect:/?error=false&&payment=0";
                             } else {
                                 result[0] = "redirect:/?error=true&&money=" + money;
+                                orderService.updateOrderSetPaid((order.getPaid() + money), orderId);
                             }
-                            orderService.updateOrderSetPaid((order.getPaid() + money), orderId);
                         });
             }
         });
@@ -62,6 +75,15 @@ public class RevenueController {
     public String cancelPayment(Model model) {
         String orderId = RequestContextHolder.currentRequestAttributes().getSessionId();
         //model.addAttribute("return",orderService.getPaidById(orderId));
-        return "redirect:/";
+        return "redirect:/?return=" + orderService.getPaidById(orderId).orElse(0L);
+    }
+
+    private void deletePaidProducts(String orderId) {
+        productOrderService.findProductIdAndNumberByOrderId(orderId)
+                .forEach(in -> {
+                            boxService.updateBoxSetCurrentLoad((boxService.findCurrentLoadByProductId(in.getId() - in.getNumber()).orElse(0)),
+                                    in.getId());
+                        }
+                );
     }
 }

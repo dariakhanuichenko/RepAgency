@@ -27,7 +27,7 @@ public class OrderService {
         return orderRepository.updateOrderSetPaid(paid, orderId);
     }
 
-    public Long getPaidById(String orderId) {
+    public Optional<Long> getPaidById(String orderId) {
         return orderRepository.findPaidById(orderId);
     }
 

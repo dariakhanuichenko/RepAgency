@@ -1,5 +1,6 @@
 package com.training.RepAgency.entity;
 
+import com.training.RepAgency.dto.BoxWithProductNameDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,8 +12,29 @@ import javax.persistence.*;
 @Builder
 @ToString
 @Entity
-@Table
+@Table    @NamedNativeQuery(
+        name = "getBoxListByCurrentLoad",
+        query = "SELECT p.name, b.id, b.total_capasity  " +
+                "FROM Box b " +
+                "inner join Product p on p.id= b.id_product " +
+                "WHERE b.current_load=? ;",
+        resultSetMapping = "BoxWithProductNameDTO"
+)
+
+@SqlResultSetMapping(
+        name = "BoxWithProductNameDTO",
+        classes = @ConstructorResult(
+                targetClass = BoxWithProductNameDTO.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "name", type = String.class),
+                        @ColumnResult(name = "total_capasity", type = Integer.class),
+                }
+        )
+)
 public class Box {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

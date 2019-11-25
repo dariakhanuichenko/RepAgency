@@ -1,5 +1,6 @@
 package com.training.RepAgency.service;
 
+import com.training.RepAgency.dto.BoxWithProductNameDTO;
 import com.training.RepAgency.entity.Product;
 import com.training.RepAgency.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class ProductService {
     }
 
     public Optional<Product> getById(Long id){return productRepository.findById(id);}
+
+   // public Optional<List<BoxWithProductNameDTO>>getBoxWithProductName(Integer currentLoad){return Optional.ofNullable(productRepository.getBoxWithProductName(currentLoad));}
 
     @PostConstruct
     public void init(){

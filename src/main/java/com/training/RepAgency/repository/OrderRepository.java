@@ -18,5 +18,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(
             value = "SELECT u.paid FROM Orders u WHERE u.id = ? ",
             nativeQuery = true)
-    Long findPaidById(String orderId);
+    Optional<Long> findPaidById(String orderId);
 }

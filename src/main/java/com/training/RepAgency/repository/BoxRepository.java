@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BoxRepository extends JpaRepository<Box,Long> {
@@ -13,8 +14,16 @@ public interface BoxRepository extends JpaRepository<Box,Long> {
             nativeQuery = true)
     Optional<Box> findByProduct(Long id);
 
+    Optional<Box> findById(Long id);
     @Modifying
-    @Query(value = "update Box u set u.current_load = ? where  u.id_product=?",
+    @Query(value = "update Box u set u.current_load = ? where  u.id=?",
             nativeQuery = true)
-    int updateBoxOrderSetCurrentLoad(Integer currentLoad,  Long productId);
+    int updateBoxOrderSetCurrentLoad(Integer currentLoad,  Long id);
+
+    @Query(
+            value = "SELECT u.current_load FROM Box u WHERE u.id_product = ? ",
+            nativeQuery = true)
+    Optional<Integer>  findCurrentLoadByProductId(Long productId);
+
+    Optional<List<Box>> findByCurrentLoad(Integer currentLoad);
 }

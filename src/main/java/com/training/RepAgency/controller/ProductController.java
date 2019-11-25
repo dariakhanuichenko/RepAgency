@@ -1,6 +1,7 @@
 package com.training.RepAgency.controller;
 
 import com.training.RepAgency.dto.ProductDTO;
+import com.training.RepAgency.entity.Box;
 import com.training.RepAgency.mapper.ProductToProductDTOMapper;
 import com.training.RepAgency.service.BoxService;
 import com.training.RepAgency.service.OrderService;
@@ -31,8 +32,6 @@ public class ProductController {
     @Autowired
     private BoxService boxService;
 
-    @Autowired
-    private OrderService orderService;
 
     @Transactional
     @GetMapping(value = "/")
@@ -45,8 +44,9 @@ public class ProductController {
         String orderId = RequestContextHolder.currentRequestAttributes().getSessionId();
         model.addAttribute("payment", revenueService.findRevenueByOrderId(orderId).orElse(0L));
         model.addAttribute("error", error);
-        model.addAttribute("return", orderService.getPaidById(orderId));
+        model.addAttribute("return", return1);
         return "index.html";
     }
+
 
 }
