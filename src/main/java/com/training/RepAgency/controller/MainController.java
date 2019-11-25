@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-
-    @GetMapping(value = "/")
-    public String getIndexPage() {
-        return "index.html";
-    }
+//
+//    @GetMapping(value = "/")
+//    public String getIndexPage() {
+//
+//
+//        return "index.html";
+//    }
 
     @GetMapping(value = "/user")
     public String userResolve() {
