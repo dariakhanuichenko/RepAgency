@@ -1,10 +1,8 @@
 package com.training.RepAgency.controller;
 
 import com.training.RepAgency.dto.ProductDTO;
-import com.training.RepAgency.entity.Box;
 import com.training.RepAgency.mapper.ProductToProductDTOMapper;
 import com.training.RepAgency.service.BoxService;
-import com.training.RepAgency.service.OrderService;
 import com.training.RepAgency.service.ProductService;
 import com.training.RepAgency.service.RevenueService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,10 +36,14 @@ public class ProductController {
     public String getIndexPage(Model model, @RequestParam(value = "error", required = false) boolean error,
                                @RequestParam(value = "return", defaultValue = "0") Long return1) {
 
-        List<ProductDTO> products = productService.getAll().stream().map(p -> ProductToProductDTOMapper.map(p, boxService.findByProduct(p.getId())))
+        List<ProductDTO> products = productService.getAll().stream()
+                .map(p -> ProductToProductDTOMapper.map(p, boxService.findByProduct(p.getId())))
                 .collect(Collectors.toList());
+
         model.addAttribute("products", products);
+
         String orderId = RequestContextHolder.currentRequestAttributes().getSessionId();
+
         model.addAttribute("payment", revenueService.findRevenueByOrderId(orderId).orElse(0L));
         model.addAttribute("error", error);
         model.addAttribute("return", return1);

@@ -74,7 +74,7 @@ public class RevenueController {
     @GetMapping("/local/cancel")
     public String cancelPayment(Model model) {
         String orderId = RequestContextHolder.currentRequestAttributes().getSessionId();
-        //model.addAttribute("return",orderService.getPaidById(orderId));
+
         productOrderService.findBoxListByOrder(orderId).forEach(c -> boxService.updateBoxSetCurrentLoad(c.getNumber1(), c.getBoxId()));
         return "redirect:/?return=" + orderService.getPaidById(orderId).orElse(0L);
     }
@@ -85,7 +85,7 @@ public class RevenueController {
         String returnStr = "";
         if (revenueService.findLastRecord().isPresent()) {
             Revenue revenue = revenueService.findLastRecord().get();
-            //model.addAttribute("returnMoney", revenue.getPayment());
+
             revenueService.deleteById(revenue.getId());
             returnStr = "redirect:/manager/empty-boxes?returnMoney=" + revenue.getPayment();
         } else returnStr = "redirect:/manager/empty-boxes";
@@ -95,7 +95,8 @@ public class RevenueController {
     private void deletePaidProducts(String orderId) {
         productOrderService.findProductIdAndNumberByOrderId(orderId)
                 .forEach(in -> {
-                            boxService.updateBoxSetCurrentLoad((boxService.findCurrentLoadByProductId(in.getId() - in.getNumber()).orElse(0)),
+                            boxService.updateBoxSetCurrentLoad(
+                                    (boxService.findCurrentLoadByProductId(in.getId() - in.getNumber()).orElse(0)),
                                     in.getId());
                         }
                 );

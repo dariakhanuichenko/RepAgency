@@ -24,7 +24,7 @@ public class MainController {
             return "redirect:user/create_request";
         }else if (auth.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_MANAGER"))) {
-            return "redirect:manager/new_requests";
+            return "redirect:manager/empty-boxes";
         }else if(auth.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_MASTER"))) {
             return "redirect:master/new_requests";

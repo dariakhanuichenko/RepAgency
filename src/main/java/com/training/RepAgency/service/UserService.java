@@ -17,10 +17,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import javax.annotation.PostConstruct;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -112,5 +110,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findEmailByRole(role)
                 .orElseThrow(RuntimeException::new);
     }
+
 }
 

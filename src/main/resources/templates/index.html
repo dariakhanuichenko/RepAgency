@@ -15,7 +15,7 @@
 <body>
 <div>
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-        <div class="container"><a class="navbar-brand" href="#">RepAgency</a>
+        <div class="container"><a class="navbar-brand" href="#"><span style="color: red; font-size:20pt; font-family: 'Arial Black'">My</span> machine</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse"
@@ -39,20 +39,21 @@
 <!--<div data-bs-parallax-bg="true"-->
 <!--     style="height: 500px;background-image: url(&quot;/assets/img/background.png&quot;);background-position: center;background-size: cover;"></div>-->
 
-<div style="margin-left:20px; margin-right: 20px;" class="row">
+<div id="line"></div>
+<div style="margin-left:40%; margin-right: 15%; margin-top: 2%" class="row">
     <div class="col">
-        <div class="table-responsive">
+        <div class="table-responsive" >
             <table class="table table-borderless">
 
                 <div th:each="product: ${products}">
                     <tr>
-                        <td th:text="${product.name}"></td>
+                        <td style="width: 70px; valign:middle;" th:text="${product.name}"></td>
 
-                        <td th:text="${product.price}"></td>
-                        <td>
-                            <a th:href="@{/local/buy-product?(id=${product.id})}" type="submit"
+                        <td style="width: 30px; valign:middle;"  th:text="${product.price}"></td>
+                        <td style="width: 30px;" >
+                            <a id="buttonBuy" th:href="@{/local/buy-product?(id=${product.id})}" type="submit"
                                th:style="${product.currentLoad == 0 ? 'pointer-events: none;' : 'pointer-events: auto;'}">
-                                Buy
+                                <span th:text="#{buy}"></span>
                             </a>
                         </td>
                         <td>
@@ -64,22 +65,28 @@
             </table>
         </div>
     </div>
+
 </div>
 <div th:style="${error == false ? 'visibility:hidden;' : 'visibility:visible;'}" class="alert alert-danger" role="alert">
-    Put enought money please
+    <span th:text="#{put.enough.money}"></span>
 </div>
 
-<div>
+<div style="margin-left: 35%">
     <form th:action="@{/local/pay}"
           method="post">
-        Put <span th:text="${payment}"></span> money
+        <span th:text="#{put}"></span>
+        <span th:text="${payment}"></span>
+        <span th:text="#{money}"></span>
         <input name="money"  pattern="[0-9]+">
-        <button type="submit"> Pay </button>
-        <a href="/local/cancel"  onclick="makeCanceled()" type="submit">Cancel</a>
+        <button id="buttonPay" type="submit">
+            <span th:text="#{pay}"></span></button>
+        <a id="buttonCansel" href="/local/cancel"  onclick="makeCanceled()" type="submit">
+            <span th:text="#{cancel}"></span>
+        </a>
     </form>
 </div>
 <div id="cancel" style="display:none;" class="alert alert-primary" role="alert">
-    Returned <span th:text="${return}"></span> money
+    <span th:text="#{returned}"></span> <span th:text="${return}"></span> <span th:text="#{money}"></span>
 </div>
 
 <script src="assets/js/jquery.min.js"></script>

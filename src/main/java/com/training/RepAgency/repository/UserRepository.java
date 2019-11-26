@@ -22,7 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     nativeQuery = true)
     Optional<List<User>>findByRole(@Param("role")String role);
 
-    Optional<Long>findIdByEmail(String email);
 
     @Query(value = "SELECT user.email from user right join  user_roles on user.id=user_roles.user_id inner join role on user_roles.roles_id=role.id where role.name=:role",
             nativeQuery = true)

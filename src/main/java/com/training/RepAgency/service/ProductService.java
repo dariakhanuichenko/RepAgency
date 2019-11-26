@@ -40,8 +40,6 @@ public class ProductService {
 
     public Optional<Product> getById(Long id){return productRepository.findById(id);}
 
-   // public Optional<List<BoxWithProductNameDTO>>getBoxWithProductName(Integer currentLoad){return Optional.ofNullable(productRepository.getBoxWithProductName(currentLoad));}
-
     @PostConstruct
     public void init(){
        items.forEach(y->productRepository.save(y));

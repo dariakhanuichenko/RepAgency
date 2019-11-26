@@ -51,6 +51,14 @@ public class ProductOrderController {
 
                 addProductToOrder(productOrder, orderId, productId, box);
 
+                box.ifPresent(b ->
+                    boxService.save(Box.builder()
+                            .id(b.getId())
+                            .totalCapasity(b.getTotalCapasity())
+                            .product(b.getProduct())
+                            .currentLoad(b.getCurrentLoad()-1)
+                            .build()
+                ));
             }
             log.info("{}", "end func");
         }
@@ -76,9 +84,5 @@ public class ProductOrderController {
             log.info("{}", "order with this product  doesn't exist");
             productOrderService.save(orderId, productId, 1);
         }
-        log.info("{}","addProductToOrder : "+box.get().getCurrentLoad());
-
-        boxService.updateBoxSetCurrentLoad(box.get().getCurrentLoad()-1, productId);
-
     }
 }

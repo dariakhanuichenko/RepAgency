@@ -35,31 +35,11 @@ public class BoxController {
         return "manager-empty-boxes.html";
     }
 
-    //
-//    @GetMapping(value = "/manager/add-product")
-//    public String addProductInBox(@RequestParam("quantity")Integer quantity, Model model) {
-//        model.addAttribute("quantity", quantity);
-//        model.addAttribute("id", boxId);
-//        Box box = boxService.findById(boxId).get();
-//        if (box.getCurrentLoad() + quantity <= box.getTotalCapasity()) {
-//            boxService.updateBoxSetCurrentLoad(box.getCurrentLoad() + quantity, boxId);
-//            log.info("{}", "current load for box " + boxId + " was updated");
-//        } else {
-//            log.info("{}", "current load for box " + boxId + " wasn't updated\n number is too big");
-//        }
-//        return "redirect:/manager/empty-boxes";
-//    }
-//    @GetMapping(value = "/manager/add-product")
-//    public String addProduct(Model model) {
-//
-//        model.addAttribute("boxDTO", new BoxDTO());
-//        return "redirect:/manager/empty-boxes";
-//    }
 
     @PostMapping(value = "/manager/add-product")
     public String addProductInBox(BoxDTO boxDTO) {
 
-        Box box = boxService.findById(boxDTO.getId()).get();
+        boxService.findById(boxDTO.getId()).ifPresent( box->{
         log.info("{}",boxDTO.getQuantity());
         log.info("{}","boxxxx:"+boxService.findById(boxDTO.getId()).get());
         if ((box.getCurrentLoad() + boxDTO.getQuantity()) <= box.getTotalCapasity()) {
@@ -67,7 +47,7 @@ public class BoxController {
             log.info("{}", "current load for box " + boxDTO.getId() + " was updated, new current_load "+boxService.findById(boxDTO.getId()).get());
         } else {
             log.info("{}", "current load for box " + boxDTO.getId() + " wasn't updated\n number is too big");
-        }
+        }});
         return "redirect:/manager/empty-boxes";
     }
 }

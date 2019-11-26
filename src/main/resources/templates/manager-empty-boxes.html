@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
-      xmlns:sd="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+>
 
 <head>
     <meta charset="utf-8">
@@ -9,34 +9,34 @@
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
     <link rel="stylesheet" href="/assets/css/styles4.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body>
 <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-    <div class="container"><a class="navbar-brand" href="#">RepAgency</a>
-        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+    <div class="container"><a class="navbar-brand" href="#"><span
+            style="color: red; font-size:20pt; font-family: 'Arial Black'">My</span> machine</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                 class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse"
-             id="navcol-1">
-            <ul class="nav navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link"
-                                        href="/manager/new_requests"
-                                        th:text="#{all.new.requests}"></a>
-                </li>
-                <li class="nav-item"><a class="nav-link"
-                                        href="/manager/all_comments"
-                                        th:text="#{all.comments}"></a>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse">
+
             <span class="navbar-text actions"> <a class="login" th:href="@{/logout}" th:text="#{nav.logout}"></a></span>
-            <button class="btn" type="button" id="locales" value="uk"
+            <button class="btn" type="button"
+                    value="uk"
+                    id="locales2"
                     style="height: 20px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>
             <button
-                    class="btn" type="button" id="locales2" value="en"
+                    value="en"
+                    class="btn" type="button" id="locales"
                     style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
         </div>
     </div>
 </nav>
+</div>
+<!--<div data-bs-parallax-bg="true"-->
+<!--     style="height: 500px;background-image: url(&quot;/assets/img/background.png&quot;);background-position: center;background-size: cover;"></div>-->
+
+<div id="line"></div>
 <div th:if="${param.error}">
     <div class="alert alert-danger" th:text="#{empty.value}">
         <h2 name="${error}" th:text="#{empty.value}"></h2>
@@ -47,14 +47,8 @@
     </div>
     <h2 th:if="${error}" th:text="${error}"></h2>
 </div>
-<div class="row">
-    <div class="col">
-        <p class="d-lg-flex justify-content-lg-center align-items-lg-end" style="font-size: 23px;"
-           th:text="#{all.new.requests}">
-            <strong></strong></p>
-    </div>
-</div>
-<div style="margin-left:20px; margin-right: 20px;" class="row">
+
+<div style="margin-left:20%; margin-right: 15%; margin-top: 2%" class="row">
     <div class="col">
         <div class="table-responsive">
             <table class="table">
@@ -66,7 +60,7 @@
                 </thead>
                 <tbody>
 
-                <div th:each="box: ${boxes}" >
+                <div th:each="box: ${boxes}">
                     <tr>
                         <td th:text="${box.name}"></td>
                         <td th:text="${box.totalCapasity}"></td>
@@ -75,10 +69,10 @@
                             <form th:action="@{/manager/add-product?(id=${box.id})}"
                                   method="post" th:object="${boxDTO}">
                                 <input
-                                       th:field="*{quantity}"
-                                       pattern="[0-9]+">
+                                        th:field="*{quantity}"
+                                        pattern="[0-9]+">
                                 <input th:value="${box.id}" th:field="*{id}" type="hidden"/>
-                                <button type="submit"> Add </button>
+                                <button type="submit" id="buttonCansel"><span th:text="#{add}"></span></button>
                             </form>
 
                         </td>
@@ -90,11 +84,14 @@
             </table>
         </div>
     </div>
+    <div>
+        <a id="buttonBuy" href="/manager/get-revenue" onclick="getRevenue()" type="submit"><span
+                th:text="#{get.revenue}"></span></a>
+    </div>
 </div>
 
-<a href="/manager/get-revenue"  onclick="getRevenue()" type="submit">Get revenue</a>
 <div id="return" style="display:none;" class="alert alert-primary" role="alert">
-    Returned <span th:text="${returnMoney}"></span> money
+    <span th:text="#{returned}"></span> <span th:text="${returnMoney}"></span> <span th:text="#{money}"></span>
 </div>
 <script>
     function getRevenue() {

@@ -52,6 +52,8 @@ public class BoxService {
                 .getResultList();
     }
 
+    public  void save(Box box){boxRepository.save(box);}
+
     @PostConstruct
     public void init() {
         boxRepository.save(Box.builder()

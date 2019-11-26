@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,8 +37,9 @@ public class ProductOrderService {
     }
 
     public List<ProductWIthNumberDTO> findProductIdAndNumberByOrderId(String orederId){
-        return productOrderRepository.findProductOrderByOrderId( orederId).get().stream()
-                .map(ProductOrderToProductWithNumberDTO::map).collect(Collectors.toList());
+        return productOrderRepository.findProductOrderByOrderId( orederId).isPresent()?
+                productOrderRepository.findProductOrderByOrderId( orederId).get().stream()
+                .map(ProductOrderToProductWithNumberDTO::map).collect(Collectors.toList()):new ArrayList<>();
     }
 
     @Transactional
@@ -45,7 +47,6 @@ public class ProductOrderService {
         productOrderRepository.deleteProductOrderByOrderId(orderId);
     }
 
-    public List<Integer> findNumberByOrderId(Long orderId){return productOrderRepository.findNumberByOrder_Id(orderId);}
 
     @SuppressWarnings("unchecked")
     public List<OrderDTO> findBoxListByOrder(String orderId) {

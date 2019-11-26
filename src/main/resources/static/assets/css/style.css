@@ -9,6 +9,58 @@
     font-size: 16px;
     margin: 4px 2px;
 }
+#buttonBuy {
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #4CAF50;
+}
+#buttonCansel{
+    background-color: white;
+    border: 2px solid #008CBA;
+    color: #008CBA;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+#buttonPay{
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #4CAF50;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2), 0 4px 10px 0 rgba(0,0,0,0.19);
+}
+#line{
+    background-color: black;
+    margin:0% 2%;
+    height: 2px;
+}
+
+
+
 
 .button1 {border-radius: 2px;}
 .button2 {border-radius: 4px;}
