@@ -76,6 +76,9 @@ public class ProductOrderController {
             log.info("{}", "order with this product  doesn't exist");
             productOrderService.save(orderId, productId, 1);
         }
-        boxService.updateBoxSetCurrentLoad((box.get().getCurrentLoad() - 1), productId);
+        log.info("{}","addProductToOrder : "+box.get().getCurrentLoad());
+
+        boxService.updateBoxSetCurrentLoad(box.get().getCurrentLoad()-1, productId);
+
     }
 }

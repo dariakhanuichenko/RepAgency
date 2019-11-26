@@ -45,6 +45,7 @@ public class ProductController {
         model.addAttribute("payment", revenueService.findRevenueByOrderId(orderId).orElse(0L));
         model.addAttribute("error", error);
         model.addAttribute("return", return1);
+        boxService.findAll().forEach(b->log.info("{}",b.getCurrentLoad()));
         return "index.html";
     }
 

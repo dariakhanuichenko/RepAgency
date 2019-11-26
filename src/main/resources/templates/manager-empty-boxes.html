@@ -73,8 +73,11 @@
 
                         <td>
                             <form th:action="@{/manager/add-product?(id=${box.id})}"
-                                  method="post">
-                                <input name="quantity"  pattern="[0-9]+">
+                                  method="post" th:object="${boxDTO}">
+                                <input
+                                       th:field="*{quantity}"
+                                       pattern="[0-9]+">
+                                <input th:value="${box.id}" th:field="*{id}" type="hidden"/>
                                 <button type="submit"> Add </button>
                             </form>
 
@@ -85,10 +88,19 @@
 
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
+
+<a href="/manager/get-revenue"  onclick="getRevenue()" type="submit">Get revenue</a>
+<div id="return" style="display:none;" class="alert alert-primary" role="alert">
+    Returned <span th:text="${returnMoney}"></span> money
+</div>
+<script>
+    function getRevenue() {
+        document.getElementById("return").style.display = "block";
+    }
+</script>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/js/script.min.js"></script>

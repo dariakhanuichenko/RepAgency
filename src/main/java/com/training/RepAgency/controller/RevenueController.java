@@ -53,13 +53,13 @@ public class RevenueController {
                             if (money >= p) {
                                 revenueService.save(Revenue.builder()
                                         .payment(p)
-                                        .date(LocalDateTime.now())
+                                        .dateTime(LocalDateTime.now())
                                         .build());
                                 deletePaidProducts(orderId);
-                                orderService.updateOrderSetPaid(0L,orderId);
+                                orderService.updateOrderSetPaid(0L, orderId);
                                 log.info("{}", orderId);
                                 productOrderService.deleteByOrderId(orderId);
-                                model.addAttribute("payment",0);
+                                model.addAttribute("payment", 0);
                                 result[0] = "redirect:/?error=false&&payment=0";
                             } else {
                                 result[0] = "redirect:/?error=true&&money=" + money;
@@ -75,7 +75,21 @@ public class RevenueController {
     public String cancelPayment(Model model) {
         String orderId = RequestContextHolder.currentRequestAttributes().getSessionId();
         //model.addAttribute("return",orderService.getPaidById(orderId));
+        productOrderService.findBoxListByOrder(orderId).forEach(c -> boxService.updateBoxSetCurrentLoad(c.getNumber1(), c.getBoxId()));
         return "redirect:/?return=" + orderService.getPaidById(orderId).orElse(0L);
+    }
+
+
+    @GetMapping("/manager/get-revenue")
+    public String getLastRevenue(Model model) {
+        String returnStr = "";
+        if (revenueService.findLastRecord().isPresent()) {
+            Revenue revenue = revenueService.findLastRecord().get();
+            //model.addAttribute("returnMoney", revenue.getPayment());
+            revenueService.deleteById(revenue.getId());
+            returnStr = "redirect:/manager/empty-boxes?returnMoney=" + revenue.getPayment();
+        } else returnStr = "redirect:/manager/empty-boxes";
+        return returnStr;
     }
 
     private void deletePaidProducts(String orderId) {

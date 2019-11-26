@@ -17,6 +17,7 @@ import java.util.Collection;
 @ToString
 @Entity
 @Table(name = "orders")
+
 public class Order {
 
     @Id

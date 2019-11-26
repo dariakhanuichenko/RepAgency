@@ -12,7 +12,8 @@ import javax.persistence.*;
 @Builder
 @ToString
 @Entity
-@Table    @NamedNativeQuery(
+@Table
+@NamedNativeQuery(
         name = "getBoxListByCurrentLoad",
         query = "SELECT p.name, b.id, b.total_capasity  " +
                 "FROM Box b " +
@@ -28,7 +29,7 @@ import javax.persistence.*;
                 columns = {
                         @ColumnResult(name = "id", type = Long.class),
                         @ColumnResult(name = "name", type = String.class),
-                        @ColumnResult(name = "total_capasity", type = Integer.class),
+                        @ColumnResult(name = "total_capasity", type = Integer.class)
                 }
         )
 )

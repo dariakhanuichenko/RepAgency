@@ -30,7 +30,7 @@ public class BoxService {
     }
 
     @Transactional
-    public int updateBoxSetCurrentLoad(Integer currentLoad, Long id) {
+    public int updateBoxSetCurrentLoad(int currentLoad, Long id) {
         return boxRepository.updateBoxOrderSetCurrentLoad(currentLoad, id);
     }
 
@@ -41,6 +41,8 @@ public class BoxService {
     public Optional<List<Box>> findByCurrentLoad(Integer currentLoad) {
         return boxRepository.findByCurrentLoad(currentLoad);
     }
+
+    public List<Box> findAll(){return boxRepository.findAll();}
 
 
     @SuppressWarnings("unchecked")
@@ -53,7 +55,7 @@ public class BoxService {
     @PostConstruct
     public void init() {
         boxRepository.save(Box.builder()
-                .currentLoad(0)
+                .currentLoad(1)
                 .totalCapasity(10)
                 .product(Product.builder()
                         .id(1L).build()).build());

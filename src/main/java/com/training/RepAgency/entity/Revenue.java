@@ -19,5 +19,5 @@ public class Revenue {
     private Long id;
 
     private Long payment;
-    private LocalDateTime date;
+    private LocalDateTime dateTime;
 }

@@ -29,13 +29,13 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder,Long>
             nativeQuery = true)
     int updateProductOrderSetNumber(int number, String orderId, Long productId);
 
-    @Query(
-            value = "SELECT * FROM Product_Order u WHERE u.order_id = ? ",
-            nativeQuery = true)
-    Optional<List<ProductOrder>> findProductIdAndNumberByOrderId(String orderId);
+//    @Query(
+//            value = "SELECT * FROM Product_Order u WHERE u.order_id = ? ",
+//            nativeQuery = true)
+    Optional<List<ProductOrder>> findProductOrderByOrderId(String orderId);
 
-    @Modifying
-    @Query(value = "delete from Product_Order u where u.order_id = ?" ,
-            nativeQuery = true)
-    void deleteByOrderId(String orderId);
+
+    void deleteProductOrderByOrderId(String orderId);
+
+    List<Integer> findNumberByOrder_Id(Long orderId);
 }

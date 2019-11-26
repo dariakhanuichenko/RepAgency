@@ -1,5 +1,6 @@
 package com.training.RepAgency.service;
 
+import com.training.RepAgency.dto.OrderDTO;
 import com.training.RepAgency.dto.ProductWIthNumberDTO;
 import com.training.RepAgency.entity.ProductOrder;
 import com.training.RepAgency.mapper.ProductOrderToProductWithNumberDTO;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +19,9 @@ public class ProductOrderService {
 
     @Autowired
     private ProductOrderRepository productOrderRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
     public void save(String idOrder, Long idProduct, int number) {
         productOrderRepository.insertProductOrder(idOrder, idProduct, number);
@@ -31,13 +36,21 @@ public class ProductOrderService {
     }
 
     public List<ProductWIthNumberDTO> findProductIdAndNumberByOrderId(String orederId){
-        return productOrderRepository.findProductIdAndNumberByOrderId( orederId).get().stream()
+        return productOrderRepository.findProductOrderByOrderId( orederId).get().stream()
                 .map(ProductOrderToProductWithNumberDTO::map).collect(Collectors.toList());
     }
 
     @Transactional
     public void deleteByOrderId(String orderId){
-        productOrderRepository.deleteByOrderId(orderId);
+        productOrderRepository.deleteProductOrderByOrderId(orderId);
     }
 
+    public List<Integer> findNumberByOrderId(Long orderId){return productOrderRepository.findNumberByOrder_Id(orderId);}
+
+    @SuppressWarnings("unchecked")
+    public List<OrderDTO> findBoxListByOrder(String orderId) {
+        return entityManager.createNamedQuery("getBoxListByOrder")
+                .setParameter(1, orderId)
+                .getResultList();
+    }
 }

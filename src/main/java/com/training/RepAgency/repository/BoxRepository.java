@@ -16,9 +16,9 @@ public interface BoxRepository extends JpaRepository<Box,Long> {
 
     Optional<Box> findById(Long id);
     @Modifying
-    @Query(value = "update Box u set u.current_load = ? where  u.id=?",
+    @Query(value = "update Box  set current_load =? where  id=?",
             nativeQuery = true)
-    int updateBoxOrderSetCurrentLoad(Integer currentLoad,  Long id);
+    int updateBoxOrderSetCurrentLoad(int currentLoad,  Long id);
 
     @Query(
             value = "SELECT u.current_load FROM Box u WHERE u.id_product = ? ",

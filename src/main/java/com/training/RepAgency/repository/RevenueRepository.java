@@ -12,4 +12,13 @@ public interface RevenueRepository extends JpaRepository<Revenue, Long> {
             value = "SELECT sum(pr.number *p.price) FROM Product_Order pr join Product p on pr.product_id=p.id WHERE pr.order_id = ?",
             nativeQuery = true)
     Optional<Long> findRevenueByOrderId(String orderId);
+
+    @Query(
+            value="SELECT TOP 1 * FROM revenue r ORDER BY r.date_time DESC",
+            nativeQuery = true
+    )
+    Optional<Revenue> findLastRecord();
+
+    @Override
+    void deleteById(Long id);
 }
