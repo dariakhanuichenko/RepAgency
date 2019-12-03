@@ -8,27 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-//
-//    @GetMapping(value = "/")
-//    public String getIndexPage() {
-//
-//
-//        return "index.html";
-//    }
+
 
     @GetMapping(value = "/user")
     public String userResolve() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_USER"))) {
-            return "redirect:user/create_request";
-        }else if (auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_MANAGER"))) {
-            return "redirect:manager/empty-boxes";
-        }else if(auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_MASTER"))) {
-            return "redirect:master/new_requests";
-        }
+            return "redirect:user/empty-boxes";}
+//        }else if (auth.getAuthorities().stream()
+//                .anyMatch(r -> r.getAuthority().equals("ROLE_MANAGER"))) {
+//            return "redirect:manager/empty-boxes";
+//        }else if(auth.getAuthorities().stream()
+//                .anyMatch(r -> r.getAuthority().equals("ROLE_MASTER"))) {
+//            return "redirect:master/new_requests";
+//        }
         return "redirect:login";
     }
 }

@@ -35,6 +35,6 @@ public class UserDTO {
     @Size(min = 5, max = 20, message = "{length.password}")
     private String password;
 
-    @NotNull(message = "{not.null}")
+    //@NotNull(message = "{not.null}")
     private String role;
 }

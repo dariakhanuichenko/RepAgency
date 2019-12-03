@@ -20,7 +20,7 @@
 <button
         value="en"
         class="btn" type="button" id="locales"
-        style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
+        style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
 
 <div class="login-form" align="center">
     <form action="#" th:action="@{/reg}" th:object="${userDTO}"
@@ -68,13 +68,13 @@
             <span class="red" th:if="${#fields.hasErrors('password')}"
                   th:errors="*{password}"></span>
         </div>
-        <div class="form-group">
-            <select th:field="*{role}">
-                <option selected value="ROLE_USER" >USER</option>
-                <option selected value="ROLE_MASTER" >MASTER</option>
-                <option selected value="ROLE_MANAGER" >MANAGER</option>
-            </select>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <select th:field="*{role}">-->
+<!--                <option selected value="ROLE_USER" >USER</option>-->
+<!--                <option selected value="ROLE_MASTER" >MASTER</option>-->
+<!--                <option selected value="ROLE_MANAGER" >MANAGER</option>-->
+<!--            </select>-->
+<!--        </div>-->
         <div class="form-group">
             <button type="submit" th:text="#{msg.reg}" class="btn btn-primary login-btn btn-block">
             </button>

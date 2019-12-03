@@ -28,6 +28,7 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "reg.html";
         }
+        System.out.println(userDTO.toString());
         userService.saveUser(userDTO);
 
         return "account-verified.html";

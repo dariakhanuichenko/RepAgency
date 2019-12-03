@@ -26,7 +26,7 @@ public class BoxController {
     @Autowired
     private BoxService boxService;
 
-    @GetMapping(value = "/manager/empty-boxes")
+    @GetMapping(value = "/user/empty-boxes")
     public String getAdminCabinet(Model model) {
 
         List<BoxWithProductNameDTO> boxes = boxService.findBoxByCurrentLoad(0);
@@ -48,6 +48,6 @@ public class BoxController {
         } else {
             log.info("{}", "current load for box " + boxDTO.getId() + " wasn't updated\n number is too big");
         }});
-        return "redirect:/manager/empty-boxes";
+        return "redirect:/user/empty-boxes";
     }
 }

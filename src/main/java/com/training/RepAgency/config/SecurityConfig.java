@@ -39,11 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/local/**"
                         //"/manager/**"
                 ).permitAll()
-                //.antMatchers("/admin/**").hasAnyRole("ADMIN")
+
 
                 .antMatchers("/user/**").hasAnyRole("USER", "MANAGER", "MASTER")
-                //.antMatchers("/manager/**").hasAnyRole("MANAGER")
-                .antMatchers("/master/**").hasAnyRole("MASTER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -56,6 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean

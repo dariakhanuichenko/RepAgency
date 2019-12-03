@@ -54,7 +54,8 @@ public class UserService implements UserDetailsService {
                     .enabled(true)
                     .firstName(userDTO.getName())
                     .surname(userDTO.getSurname())
-                    .roles(Arrays.asList(new Role(userDTO.getRole()))).build());
+                    .roles(Arrays.asList(new Role("ROLE_USER")))
+                    .build());
 
         } catch (Exception ex) {
             log.info("{Почтовый адрес уже существует}");

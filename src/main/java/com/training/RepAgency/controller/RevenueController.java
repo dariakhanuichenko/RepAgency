@@ -87,8 +87,8 @@ public class RevenueController {
             Revenue revenue = revenueService.findLastRecord().get();
 
             revenueService.deleteById(revenue.getId());
-            returnStr = "redirect:/manager/empty-boxes?returnMoney=" + revenue.getPayment();
-        } else returnStr = "redirect:/manager/empty-boxes";
+            returnStr = "redirect:/user/empty-boxes?returnMoney=" + revenue.getPayment();
+        } else returnStr = "redirect:/user/empty-boxes";
         return returnStr;
     }
 
