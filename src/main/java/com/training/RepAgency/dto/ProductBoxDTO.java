@@ -4,15 +4,16 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
+
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
-public class ProductDTO {
-    @NotNull(message = "{not.null}")
-    private Long id;
+public class ProductBoxDTO {
+
 
     @NotNull(message = "{not.null}")
     private String name;
@@ -21,5 +22,5 @@ public class ProductDTO {
     private Long price;
 
     @NotNull(message = "{not.null}")
-    private Integer currentLoad;
+    private Integer totalCapasity;
 }

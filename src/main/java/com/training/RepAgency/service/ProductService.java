@@ -40,6 +40,8 @@ public class ProductService {
 
     public Optional<Product> getById(Long id){return productRepository.findById(id);}
 
+    public  void  save(Product product){ productRepository.save(product);}
+
     @PostConstruct
     public void init(){
        items.forEach(y->productRepository.save(y));

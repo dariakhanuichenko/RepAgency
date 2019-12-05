@@ -23,7 +23,7 @@ public class MainController {
 //                .anyMatch(r -> r.getAuthority().equals("ROLE_MASTER"))) {
 //            return "redirect:master/new_requests";
 //        }
-        return "redirect:login";
+        return "redirect:/empty-boxes";
     }
 }
 

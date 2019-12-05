@@ -54,17 +54,17 @@ public class BoxService {
 
     public  void save(Box box){boxRepository.save(box);}
 
-    @PostConstruct
-    public void init() {
-        boxRepository.save(Box.builder()
-                .currentLoad(1)
-                .totalCapasity(10)
-                .product(Product.builder()
-                        .id(1L).build()).build());
-        boxRepository.save(Box.builder()
-                .currentLoad(0)
-                .totalCapasity(10)
-                .product(Product.builder()
-                        .id(2L).build()).build());
-    }
+//    @PostConstruct
+//    public void init() {
+//        boxRepository.save(Box.builder()
+//                .currentLoad(1)
+//                .totalCapasity(10)
+//                .product(Product.builder()
+//                        .id(1L).build()).build());
+//        boxRepository.save(Box.builder()
+//                .currentLoad(0)
+//                .totalCapasity(10)
+//                .product(Product.builder()
+//                        .id(2L).build()).build());
+//    }
 }
